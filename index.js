@@ -34,6 +34,11 @@ wss.on("connection", ws => {
                 clientid = i;
             }
         }
+        for(i=0; i < CLIENTS.length; i++){
+            if(i!=id){
+                CLIENTS[i].send("Client " + clientid + " disconnected");
+            }
+        }
         console.log("client " + clientid+" has disconnected");
     });
 
