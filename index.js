@@ -7,7 +7,12 @@ let id=0;
 wss.on("connection", ws => {
     console.log("new client connected. id: " + id);
     CLIENTS[id] = ws;
-    sendAll("new client connected", id)
+    for(i=0; i < CLIENTS.length; i++){
+        
+        if(i!=id){
+            CLIENTS[i].send("Client " + id + " joined");
+        }
+    }
     id++;
 
     ws.on("message", data => {
