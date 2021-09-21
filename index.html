@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Socket.io example</title>
+  </head>
+  <body>
+    <h1>web sockets basics</h1>
+    <input id ="msg"></input>
+    <button onclick = "sendMessage()" type = "submit">Send</button>
+    <div id = "chat"></div>
+    
+    <script>
+      const ws = new WebSocket("ws://localhost:8082");
+      const chat = document.getElementById("chat");
+      ws.addEventListener("open", ()=>{
+        console.log("we are connected");
+      });
+
+      ws.addEventListener("message", data =>{
+        console.log("recieved message from server: " + data.data);
+        chat.innerHTML += "<span>" + data.data + "</span><br>";
+      })
+
+      function sendMessage(){
+        let msgInput = document.getElementById(msg);
+        let msgVal = msg.value;
+        msg.value="";
+        ws.send(msgVal);
+        
+      }
+    </script>
+  </body>
+</html>
